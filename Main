@@ -1,0 +1,98 @@
+import javax.swing.*;
+import java.util.Scanner;
+
+public class Main{
+
+public static void main(String[] args) {
+Scanner scanner = new Scanner(System.in);
+System.out.println("Do you want a Simple or Compound Interest Calculator?: ");
+String input = scanner.nextLine();
+
+if(input.equals("Simple") || input.equals("simple")) {
+System.out.println("Check your new window!");
+new SimpleInterest();
+}
+else if(input.equals("Compound") || input.equals("compound")) {
+System.out.println("Check your new window!");
+new CompoundInterest();
+}
+
+scanner.close();
+}
+}
+
+class SimpleInterest{
+
+SimpleInterest() {
+JFrame myFrame = new JFrame("Simple Interest Calculator");
+myFrame.setSize(500, 250);
+JPanel myPanel = new JPanel();
+
+JLabel principalLabel = new JLabel("Principal:");
+JTextField principalText = new JTextField(3);
+JLabel rateLabel = new JLabel("Rate (decimal):");
+JTextField rateText = new JTextField(3);
+JLabel timeLabel = new JLabel("Time (in years):");
+JTextField timeText = new JTextField(3);
+JButton myButton = new JButton("Simple Interest");
+myButton.addActionListener(e -> calcSimpleInterest(principalText.getText(), rateText.getText(), timeText.getText()));
+
+myPanel.add(principalLabel);
+myPanel.add(principalText);
+myPanel.add(rateLabel);
+myPanel.add(rateText);
+myPanel.add(timeLabel);
+myPanel.add(timeText);
+myPanel.add(myButton);
+
+myFrame.add(myPanel);
+myFrame.setVisible(true);
+}
+
+static void calcSimpleInterest(String p, String r, String t) {
+double calcInterest = Double.parseDouble(p) * Double.parseDouble(r) * Double.parseDouble(t);
+System.out.println("Interest: $" +  calcInterest);
+}
+}
+
+class CompoundInterest {
+
+CompoundInterest() {
+JFrame myFrame = new JFrame("Interest Calculator");
+myFrame.setSize(500, 250);
+JPanel myPanel = new JPanel();
+
+JLabel principalLabel = new JLabel("Principal:");
+JTextField principalText = new JTextField(3);
+JLabel rateLabel = new JLabel("Rate (decimal):");
+JTextField rateText = new JTextField(3);
+JLabel compoundLabel = new JLabel("Compound:");
+JTextField compoundText = new JTextField(3);
+JLabel timeLabel = new JLabel("Time (in years):");
+JTextField timeText = new JTextField(3);
+JButton myButton = new JButton("Compound Interest");
+myButton.addActionListener(e -> System.out.println(calcCompoundInterest(principalText.getText(), rateText.getText(), compoundText.getText(), timeText.getText())));
+
+myPanel.add(principalLabel);
+myPanel.add(principalText);
+myPanel.add(rateLabel);
+myPanel.add(rateText);
+myPanel.add(compoundLabel);
+myPanel.add(compoundText);
+myPanel.add(timeLabel);
+myPanel.add(timeText);
+myPanel.add(myButton);
+
+myFrame.add(myPanel);
+myFrame.setVisible(true);
+}
+
+static String calcCompoundInterest(String p, String r, String n, String t) {
+Double principal = Double.parseDouble(p);
+double rate = Double.parseDouble(r);
+double compound = Double.parseDouble(n);
+double time = Double.parseDouble(t);
+double calcInterest = principal * Math.pow(1 + rate/compound, compound * time);
+return "Interest: $" + Math.round((calcInterest - principal));
+}
+}
